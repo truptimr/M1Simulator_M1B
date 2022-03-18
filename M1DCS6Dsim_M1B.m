@@ -3,12 +3,12 @@ clc
 clear
 close all
 %%inputs
-t = 13.5; % tilt of the off axis mirror
+tilt = 13.5; % tilt of the off axis mirror
 clk = 0; % clocking angle of one of the off axis mirror.
 zenith = 0;
 % alpha = 1;
 % Gravity force
-[Fg, Mg, FMg] = decompose_gravity_vector(t,clk,zenith);
+[Fg, Mg, FMg] = decompose_gravity_vector(tilt,clk,zenith);
 
 %% constants
 K = [    0         0         0         0         0         0;
@@ -740,7 +740,7 @@ ds2dm = [1/3 0 0 1/3 0 0 1/3 0 0;
 S = pinv(ds2dm);
 
 %% initialize arrays
-alpha_vec = (0:0.01:2)';
+alpha_vec = (0:0.001:1.5)';
 nalpha = length(alpha_vec);
 Fxyz = zeros(170,3,nalpha);
 Xm = zeros(6,nalpha);
@@ -806,7 +806,12 @@ for k = 1 : nalpha
     Fa_prev = FMa;
 %     Xm(:,k+1) = Xm(:,k);
     Fxyz_r = Fxyz_s; % change it to local actuator coordinate system
-    Xha(:,k+1) = dm2dh(Xm(:,k+1)); % change it to HP coordinate system
+    if alpha >0..
+        Xha(:,k+1) = -4.7174*ones(6,1);
+    else
+        Xha(:,k+1) = dm2dh(Xm(:,k+1)); % change it to HP coordinate system
+    end
+    
     Ks_vec(:,:,k) = Ks;
     Kh_vec(:,:,k) = Kh;
     foo(:,k) = sign(FMg + FMa);
