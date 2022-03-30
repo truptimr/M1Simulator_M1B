@@ -343,20 +343,20 @@ inds = [60    74
    121    39];
 ios = inds(:,1); ibs = inds(:,2);
 ind5r = [3 4 5 1 2]';
-Fxyzin = [Fxyzin;zeros(5,3)]; % convert from 170x 3 tp 175x 3
+% Fxyzin = [Fxyzin;zeros(5,3)]; % convert from 170x 3 tp 175x 3
 
-Fx = Fxyzin(:,1); Fy = Fxyzin(:,2); Fz = Fxyzin(:,3);
-Fx5 = Fx(ind1,:) + Fx(ind2,:);
-Fy5 = Fy(ind1,:) + Fy(ind2,:);
-Fz5 = Fz(ind1,:) + Fz(ind2,:);
-Fx(171:175,:) = Fx5(ind5r,:);
-Fy(171:175,:) = Fy5(ind5r,:);
-Fz(171:175,:) = Fz5(ind5r,:);
-Fxt = Fx(~indb_extra,:) ;
-Fyt = Fy(~indb_extra,:);
-Fzt = Fz(~indb_extra,:);
-% sort to put forces in same order and coordinate as inflence matrix
-% Fxs = Fyt(ibs,:);  Fys = Fxt(ibs,:); Fzs = Fzt(ibs,:);
-Fxs = Fxt(ibs,:);  Fys = Fyt(ibs,:); Fzs = Fzt(ibs,:);
-Fxt(ios,:) = Fxs;  Fyt(ios,:) = Fys; Fzt(ios,:) = Fzs;
-Fxyz = [Fxt Fyt Fzt];
+% Fx = Fxyzin(:,1); Fy = Fxyzin(:,2); Fz = Fxyzin(:,3);
+% Fx5 = Fx(ind1,:) + Fx(ind2,:);
+% Fy5 = Fy(ind1,:) + Fy(ind2,:);
+% Fz5 = Fz(ind1,:) + Fz(ind2,:);
+% Fx(171:175,:) = Fx5(ind5r,:);
+% Fy(171:175,:) = Fy5(ind5r,:);
+% Fz(171:175,:) = Fz5(ind5r,:);
+% Fxt = Fx(~indb_extra,:) ;
+% Fyt = Fy(~indb_extra,:);
+% Fzt = Fz(~indb_extra,:);
+
+Fxyzin(161:165,:)=Fxyzin(161:165,:)+Fxyzin(166:170,:);
+% Fxyzin(166:170,:) = [];
+Fxyz = zeros(size(Fxyzin(1:165,:)));
+Fxyz(ios,:) = Fxyzin(ibs,:);
