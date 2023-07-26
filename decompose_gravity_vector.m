@@ -1,7 +1,8 @@
 function [Fg, Mg, FMg] = decompose_gravity_vector(t,clk,zenith)
 
 %% mirror in M1B
-M = 1.5671e+04; % kg Mirror mass
+M = 1.5671e+04; % kg OA Mirror mass
+% M = 13800*9.806; % simulator
 % [Ixx, Iyy, Izz, Ixy,Iy,  Izx] = [3805.16, 73275.66, 145422.8, 0.0118564, 1.47262E-4, 14.53672]; % about CG
 % Mass matrix
 cg = [2.67299E-5     -5.356E-8     -0.161687]'; % cg in M1S1 coordinate system

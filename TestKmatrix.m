@@ -1523,7 +1523,7 @@ K2 =[-0.0132         0         0         0         0   -0.0000
    -0.0057         0         0         0         0   -0.0007
          0   -0.0057         0         0         0    0.0032
     0.0007    0.0000   -0.0036    0.0004   -0.0019         0];
-[Fg, FM, FMg] = decompose_gravity_vector(13.5,60,60);
+[Fg, FM, FMg] = decompose_gravity_vector(0,0,0);
 Fxyz = K1*FMg;
 Fxyz1 = reshape(Fxyz,3,170)';
 Fxyz = K2*FMg;

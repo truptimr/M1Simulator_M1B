@@ -1255,10 +1255,14 @@ nalpha = length(alpha_vec);
 Fxyz = zeros(170,3,nalpha);
 Xm = zeros(6,nalpha);
 Xha = zeros(6,nalpha);
+Xhm = zeros(6,nalpha);
 Fh_r = zeros(6,nalpha);
 Ks_vec = zeros(9,9,nalpha);
 Kh_vec = zeros(6,6,nalpha);
 foo = zeros(6,nalpha);
+var1 = zeros(6,6,nalpha);
+var2 = zeros(6,nalpha);
+var3 = zeros(6,nalpha);
 
 % initial condition
 Fss = Force_M2S(-([Fg;0;0;0])); % static support reaction force
@@ -1301,6 +1305,7 @@ for k = 1 : 2000
     % hardpoint force
     % during chase
     Xh_r = dm2dh(Xm(:,k));
+    Xhm(:,k) = Xh_r;
     [~, Kh, Fhbk] = hp_stiffness(Xh_r,Xha(:,k));
     
     % after chase
@@ -1310,7 +1315,9 @@ for k = 1 : 2000
 %     end
     
     Xm(:,k+1) = pinv(Ts*Ks*S + Th*Kh*H)*(FMg + FMa + Ts*Ks*(sign(Xs).*X_ss_gap) + Th*Kh*Xha(:,k) + Th*Fhbk );
-    
+    var1(:,:,k) = Th*Kh*H;
+    var2(:,k) = Th*Kh*Xha(:,k);
+    var3(:,k) = Th*Fhbk;
     
     % hardopint reaction force and breakaway encoder update
 %     Xh_r = dm2dh(Xm(:,k+1));
@@ -1338,7 +1345,7 @@ end
 tn = (1:1:length(Xm))';
 figure(1);
 % plot(tn(1:end),Xha(3,:)');
-plot(tn(2:end),Fh_r(3,:)');
+plot(tn(2:end),Fh_r');
 
 
 % %% initial down condition
